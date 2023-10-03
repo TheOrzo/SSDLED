@@ -1,0 +1,183 @@
+:root {
+    --background-color: #121212;
+    --background-color-1dp: #1d1d1d;
+    --primary-color: #FEDE7D;
+    --secondary-color: #7d9dfe;
+
+    --font: 'Roboto', sans-serif;
+    --border-radius: 4px;
+    
+    font-family: var(--font);
+    
+    user-select: none;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+/* The mode selection area */
+.modeselect {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.08); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.modeselect .logo {
+    padding: 10px 8px 10px 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    color: #c5c5c5;
+    display: block;
+}
+
+.modeselect img {
+    width: 100px;
+    text-align: center;
+}
+  
+  /* The navigation menu links */
+.modeselect a {
+    padding: 10px 8px 10px 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    color: #c5c5c5;
+    display: block;
+}
+  
+  /* When you mouse over the navigation links, change their color */
+.modeselect a:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.modeselect a.selected {
+    color: var(--primary-color);
+}
+
+.modeselect a .modeicon {
+    font-size: 40px;
+}
+
+
+.modeselect a .modetext {
+    display: none;
+}
+
+.modeselect a.selected .modetext {
+    display: inline;
+}
+  
+/* Style page content */
+.main {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 10px 10px;
+    color: #c5c5c5;
+    font-family: var(--font);
+}
+  
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.hidden {
+    display: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 10px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 0;
+    user-select: none;
+    width: var(--width);
+    height: var(--height);
+    background: none;
+}
+
+/* Settings Navigation */
+.settingsnav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-left: 20px;
+    height: 80px; /* Full-height: remove this if you want "auto" height */
+    width: calc(100% - 160px); /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 160px;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.05); /* Black */
+    overflow-y: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.settingsnav a {
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    color: #c5c5c5;
+    display: block;
+    width: 150px;
+    height: 100%;
+}
+
+.settingsnav a:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.settingsnav a.selected {
+    color: var(--primary-color);
+}
+
+.settingsnav a .modeicon {
+    font-size: 40px;
+}
+
+.settingsnav a:hover .modeicon {
+    font-size: 30px;
+}
+.settingsnav a.selected .modeicon {
+    font-size: 30px;
+}
+
+.settingsnav a .modetext {
+    font-size: 10px;
+}
+
+.settingsnav a:hover .modetext {
+    font-size: 20px;
+}
+
+.settingsnav a.selected .modetext {
+    font-size: 20px;
+}

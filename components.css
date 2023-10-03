@@ -1,0 +1,138 @@
+/* Color Fader */
+.colorfader,.fader {
+    display: flex;
+    flex-flow: column;
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 5px;
+    padding-top: calc(var(--height) * 0.05);
+    width: var(--width);
+    height: var(--height);
+    user-select: none;
+}
+
+.colorfader.fadecolor {
+    background: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    flex-flow: column;
+    align-self: center;
+    background-image: linear-gradient(var(--from-color), var(--to-color));
+    width: calc(var(--width) * 0.4);
+    height: calc(var(--height) * 0.95 - 30px);
+    padding: 0;
+    user-select: none;
+}
+
+.colorfader.fadecolorhead {
+    background: none;
+    position: absolute;
+    align-self: center;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(var(--width) * 0.5);
+    height: calc(var(--height) * 0.05);
+    border: solid 5px rgb(121, 121, 121);
+    padding: 0;
+    user-select: none;
+}
+
+.colorfader.fadeattr, .fader.fadeattr {
+    background: none;
+    flex-flow: column;
+    align-self: center;
+    margin-top: calc(var(--height) * 0.05);
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    text-align: center;
+    user-select: none;
+    height: 30px;
+}
+
+.fader.fadescale {
+    background: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-flow: column;
+    align-self: center;
+    background-repeat: no-repeat;
+    width: calc(var(--width) * 0.8);
+    height: calc(var(--height) * 0.95 - 30px);
+    padding: 0;
+    user-select: none;
+}
+
+.fader.fadehead {
+    background: none;
+    position: absolute;
+    align-self: center;
+    margin-top: 0px;
+    background-color: rgb(121, 121, 121);
+    width: calc(var(--width) * 0.4);
+    height: calc(var(--height) * 0.03);
+    padding: 0;
+    user-select: none;
+}
+
+/* Button Container */
+.section {
+    justify-self: stretch;
+    margin: auto;
+    margin-top: 0;
+    margin-left: 0;
+    padding: 15px;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.buttonsection {    
+    background: none;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 10px;
+    gap: 15px;
+    
+    width: 100%;
+    height: 100%;
+}
+
+.simplebutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 150px;
+    height: 150px;
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.05);
+    word-break: break-word;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.simplebutton .material-icons {
+    text-align: center;
+    font-size: 30px;
+}
+
+.simplebutton:hover {
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+.simplebutton.selected {
+    color: var(--primary-color);
+    background-color: rgba(254, 222, 125, 0.2);
+}

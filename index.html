@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Café Licht</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="components.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <script src="scripts.js"></script>
+        <script src="components.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.1/tinycolor.min.js"></script>
+    </head>
+    <body>
+
+        <!-- Mode selection area-->
+        <div class="modeselect">
+            <div class="logo"><img src="https://z10.info/imgs/Z10-Logo_low.png"></img></div>
+            <a onclick="changeMode('ausschank');selectNavItem(this)" class="mode" id="ausschankNavItem">
+                <span class="material-icons md-60 modeicon">local_cafe</span><br />
+                <span class="modetext">Ausschank</span>
+            </a>
+            <a onclick="changeMode('sumpf');selectNavItem(this)" class="mode">
+                <span class="material-icons modeicon">weekend</span><br />
+                <span class="modetext">Sumpf</span>
+            </a>
+            <a onclick="changeMode('expert');selectNavItem(this)" class="mode">
+                <span class="material-icons modeicon">tune</span><br />
+                <span class="modetext">Experten</span>
+            </a>
+            <a onclick="changeMode('programmer');selectNavItem(this)" class="mode">
+                <span class="material-icons modeicon">settings</span><br />
+                <span class="modetext">Einstellungen</span>
+            </a>
+        </div>
+
+        <!-- Ausschank content -->
+        <div id="ausschank" class="main ausschank">
+        </div>
+
+        <!-- Ausschank content -->
+        <div id="contentSumpf" class="main sumpf"></div>
+
+        <!-- Ausschank content -->
+        <div id="contentExpert" class="main expert"></div>
+
+        <!-- Ausschank content -->
+        <div id="contentSettings" class="main programmer">
+            <div id="settingsNav" class="settingsnav">
+                <a id="settingsNavItemMapping" onclick="changeSettingsPage('mapping')">
+                    <span class="material-icons md-60 modeicon">shuffle_on</span><br />
+                    <span class="modetext">Input Mapping</span>
+                </a>
+                <a id="settingsNavItemEffects" onclick="changeSettingsPage('effects')">
+                    <span class="material-icons md-60 modeicon">auto_fix_high</span><br />
+                    <span class="modetext">Effekte</span>
+                </a>
+                <a id="settingsNavItemSegments" onclick="changeSettingsPage('segments')">
+                    <span class="material-icons md-60 modeicon">fluorescent</span><br />
+                    <span class="modetext">Segmente</span>
+                </a>
+                <a id="settingNavItemLock" onclick="changeSettingsPage('lock')">
+                    <span class="material-icons md-60 modeicon">lock</span><br />
+                    <span class="modetext">Lock</span>
+                </a>
+            </div>
+            <div id="settingsContent" class="settingscontent">
+                <div id="settingsMappingContent" class="settingsContent hidden"></div>
+                <div id="settingsEffectsContent" class="settingsContent hidden"></div>
+                <div id="settingsSegmentsContent" class="settingsContent hidden"></div>
+                <div id="settingsLockContent" class="settingsContent hidden"></div>
+            </div>
+        </div>
+    </body>
+</html>
