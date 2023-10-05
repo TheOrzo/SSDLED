@@ -160,12 +160,14 @@ function createFader(name, min, max, width, height) {
         this.isDragging = true;
     });
     faderscale.addEventListener('touchstart', e => {
+        e.preventDefault();
         this.isDragging = true;
 
         let faderOffset = faderscale.offsetTop;
         fader.update(e.clientY - faderOffset);
     });
     faderhead.addEventListener('touchstart', e => {
+        e.preventDefault();
         this.isDragging = true;
     });
     
@@ -173,6 +175,7 @@ function createFader(name, min, max, width, height) {
         this.isDragging = false;
     });
     fader.addEventListener('touchend', e => {
+        e.preventDefault();
         this.isDragging = false;
     });
 
@@ -186,11 +189,12 @@ function createFader(name, min, max, width, height) {
         }
     });
     fader.addEventListener('touchmove', e => {
+        e.preventDefault();
         if (this.isDragging) {
             let faderOffset = faderscale.offsetTop;
             fader.update((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
         }
-    });
+    }, false);
 
     fader.setValue = function(v) {
         if (v > max) {v = max;}

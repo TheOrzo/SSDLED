@@ -15,7 +15,7 @@ function changeMode(mode) {
 }
 
 function selectNavItem(item) {
-    Array.from(document.querySelectorAll('.modeselect a')).forEach(e => {
+    Array.from(document.querySelectorAll('.mode')).forEach(e => {
         e.classList.remove('selected');
     });
     item.classList.add('selected');

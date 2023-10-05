@@ -14,6 +14,7 @@
 
 body {
     background-color: var(--background-color);
+    overscroll-behavior: contain;
 }
 
 /* The mode selection area */
@@ -44,7 +45,7 @@ body {
 }
   
   /* The navigation menu links */
-.modeselect a {
+.modeselect .mode {
     padding: 10px 8px 10px 8px;
     text-align: center;
     text-decoration: none;
@@ -54,25 +55,24 @@ body {
 }
   
   /* When you mouse over the navigation links, change their color */
-.modeselect a:hover {
-    color: var(--primary-color);
-    cursor: pointer;
-}
-
-.modeselect a.selected {
+.modeselect .mode:hover {
     color: var(--primary-color);
 }
 
-.modeselect a .modeicon {
+.modeselect .selected {
+    color: var(--primary-color);
+}
+
+.modeselect .modeicon {
     font-size: 40px;
 }
 
 
-.modeselect a .modetext {
+.modeselect .modetext {
     display: none;
 }
 
-.modeselect a.selected .modetext {
+.modeselect .selected .modetext {
     display: inline;
 }
   
