@@ -43,8 +43,20 @@ function createColorSlider(name, from, to, width, height) {
     faderhead.addEventListener('mousedown', e => {
         this.isDragging = true;
     });
+    fadercolor.addEventListener('touchstart', e => {
+        this.isDragging = true;
+
+        let faderOffset = fadercolor.offsetTop;
+        fader.update(e.clientY - faderOffset);
+    });
+    faderhead.addEventListener('touchstart', e => {
+        this.isDragging = true;
+    });
     
     fader.addEventListener('mouseup', e => {
+        this.isDragging = false;
+    });
+    fader.addEventListener('touchend', e => {
         this.isDragging = false;
     });
 
@@ -56,6 +68,12 @@ function createColorSlider(name, from, to, width, height) {
         if (this.isDragging) {
             let faderOffset = fadercolor.offsetTop;
             fader.update(e.clientY - faderOffset);
+        }
+    });
+    fader.addEventListener('touchmove', e => {
+        if (this.isDragging) {
+            let faderOffset = fadercolor.offsetTop;
+            fader.update((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
         }
     });
 
@@ -141,8 +159,20 @@ function createFader(name, min, max, width, height) {
     faderhead.addEventListener('mousedown', e => {
         this.isDragging = true;
     });
+    faderscale.addEventListener('touchstart', e => {
+        this.isDragging = true;
+
+        let faderOffset = faderscale.offsetTop;
+        fader.update(e.clientY - faderOffset);
+    });
+    faderhead.addEventListener('touchstart', e => {
+        this.isDragging = true;
+    });
     
     fader.addEventListener('mouseup', e => {
+        this.isDragging = false;
+    });
+    fader.addEventListener('touchend', e => {
         this.isDragging = false;
     });
 
@@ -153,6 +183,12 @@ function createFader(name, min, max, width, height) {
     fader.addEventListener('mousemove', e => {
         if (this.isDragging) {
             fader.update(e.clientY - faderscale.offsetTop);
+        }
+    });
+    fader.addEventListener('touchmove', e => {
+        if (this.isDragging) {
+            let faderOffset = faderscale.offsetTop;
+            fader.update((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
         }
     });
 
