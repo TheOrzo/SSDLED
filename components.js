@@ -1,79 +1,180 @@
-function createColorSlider(name, from, to, width, height) {
+function createFader(name, style, min, max, color1, color2) {
+    let faderbody = document.createElement('div');
+    faderbody.classList.add("faderbody");
+    faderbody.style.setProperty('--from', min);
+    faderbody.style.setProperty('--to', max);
     let fader = document.createElement('div');
-    fader.classList.add("colorfader");
-    fader.style.setProperty('--width', width + 'px');
-    fader.style.setProperty('--height', height + 'px');
-    let fadercolor = document.createElement('div');
-    fadercolor.classList.add("colorfader", "fadecolor");
-    fadercolor.style.setProperty('--from-color', from);
-    fadercolor.style.setProperty('--to-color', to);
-    let faderhead = document.createElement('div');
-    faderhead.classList.add("colorfader", "fadecolorhead");
-    let faderattr = document.createElement('div');
-    faderattr.classList.add("colorfader", "fadeattr");
-    faderattr.textContent = name;
-    fader.appendChild(fadercolor);
-    fader.appendChild(faderhead);
-    fader.appendChild(faderattr);
-    
-    fader.isDragging = false;
-    fader.color = 0;
-    fader.value = 0;
+    fader.classList.add("fader");
 
-    fader.update = function(pos) {
-        let faderHeight = fadercolor.clientHeight;
+    let scale, head;
+    switch (style) {
+        case 'color':
+            scale = document.createElement('div');
+            scale.classList.add("colorscale");
+            scale.style.setProperty('--from-color', color1);
+            scale.style.setProperty('--to-color', color2);
+            head = document.createElement('div');
+            head.classList.add("fadecolorhead"); 
+            break;
+        case 'value':
+            scale = document.createElement('div');
+            scale.classList.add("fadescale");
+            let center = document.createElement('div');
+            center.classList.add('center');
+            let label = document.createElement('div');
+            label.classList.add('label');
+            let zero = document.createElement('span');
+            zero.textContent = min;
+            let half = document.createElement('span');
+            half.textContent = Math.round((max - min) / 2);
+            let full = document.createElement('span');
+            full.textContent = max;
+            label.appendChild(zero);
+            label.appendChild(half);
+            label.appendChild(full);
+            scale.appendChild(center);
+            scale.appendChild(label);
+
+            head = document.createElement('div');
+            head.classList.add("fader", "fadehead");
+        break
+    }
+    
+    let faderattr = document.createElement('div');
+    faderattr.classList.add("fadeattr");
+    faderattr.textContent = name;
+    fader.appendChild(scale);
+    fader.appendChild(head);
+    faderbody.appendChild(fader);
+    faderbody.appendChild(faderattr);
+    
+    faderbody.faderstyle = style;
+    faderbody.isDragging = false;
+    faderbody.color = 0;
+    faderbody.value = 0;
+    faderbody.min = min;
+    faderbody.max = max;
+
+    faderbody.isVertical = function() {return faderbody.clientWidth <= faderbody.clientHeight;};
+
+    faderbody.updateV = function(pos) {
+        let faderHeight = scale.clientHeight;
         if(pos > faderHeight) {
             pos = faderHeight;
         } else if (pos < 0) {
             pos = 0;
         }
-        faderhead.style.marginTop = (pos - faderhead.clientHeight / 2) + 'px';
+        head.style.marginTop = (pos - head.clientHeight / 2 - getComputedStyle(head).borderTopWidth.slice(0, -2)) + 'px';
+        head.style.marginLeft = 'unset';
         
-        fader.color = linearGradient(fadercolor.style.getPropertyValue('--from-color'), fadercolor.style.getPropertyValue('--to-color'), (faderHeight - pos)/faderHeight);
-        faderhead.style.backgroundColor = fader.color;
-        fader.value = (faderHeight - pos) / faderHeight;
+        if (style == 'color') {
+            faderbody.color = linearGradient(scale.style.getPropertyValue('--from-color'), scale.style.getPropertyValue('--to-color'), (faderHeight - pos)/faderHeight);
+            head.style.backgroundColor = faderbody.color;
+        }
+        
+        faderbody.value = (faderHeight - pos) / faderHeight * (max - min);
+    };
+    
+    faderbody.updateH = function(pos) {
+        let faderWidth = scale.clientWidth;
+        if(pos > faderWidth) {
+            pos = faderWidth;
+        } else if (pos < 0) {
+            pos = 0;
+        }
+        head.style.marginLeft = (pos - head.clientWidth / 2 - getComputedStyle(head).borderLeftWidth.slice(0, -2)) + 'px'; // 5px border width
+        head.style.marginTop = 'unset';
+                
+        if (style == 'color') {
+            faderbody.color = linearGradient(scale.style.getPropertyValue('--from-color'), scale.style.getPropertyValue('--to-color'), (faderWidth - pos)/faderWidth);
+            head.style.backgroundColor = faderbody.color;
+        }
+        faderbody.value = (faderWidth - pos) / faderWidth * (max - min);
     };
 
-    fadercolor.addEventListener('mousedown', e => {
+    faderbody.setValue = function(v) {
+        if (v > faderbody.max) {v = max;}
+        if (v < min) {v = min;}
+
+        if (faderbody.isVertical()) {
+            let faderHeight = scale.clientHeight;
+            let faderOffset = scale.offsetTop; // will be substracted in update()
+            let pos = faderHeight - (v / (max - min)) * faderHeight;
+            
+            faderbody.updateV(pos);
+            faderbody.value = v;
+        } else {
+            let width = scale.clientWidth;
+            let offset = scale.offsetLeft; // will be substracted in update()
+            let pos = width - (v / (max - min)) * width;
+            
+            faderbody.updateH(pos);
+        }
+    };
+
+    scale.addEventListener('mousedown', e => {
         this.isDragging = true;
 
-        let faderOffset = fadercolor.offsetTop;
-        fader.update(e.clientY - faderOffset);
+        if (faderbody.isVertical()) {
+            // Fader is vertical
+            let faderOffset = scale.offsetTop;
+            faderbody.updateV(e.clientY - faderOffset);
+        } else {
+            // Fader is horizontal
+            let faderOffset = scale.offsetLeft;
+            faderbody.updateH(e.clientX - faderOffset);
+        }
+        
     });
-    faderhead.addEventListener('mousedown', e => {
+    head.addEventListener('mousedown', e => {
         this.isDragging = true;
     });
-    fadercolor.addEventListener('touchstart', e => {
+    scale.addEventListener('touchstart', e => {
         this.isDragging = true;
 
-        let faderOffset = fadercolor.offsetTop;
-        fader.update(e.clientY - faderOffset);
+        if (faderbody.isVertical()) {
+            let faderOffset = scale.offsetTop;
+            faderbody.updateV(e.clientY - faderOffset);
+        } else {
+            let faderOffset = scale.offsetLeft;
+            faderbody.updateH(e.clientX - faderOffset);
+        }
     });
-    faderhead.addEventListener('touchstart', e => {
+    head.addEventListener('touchstart', e => {
         this.isDragging = true;
     });
     
-    fader.addEventListener('mouseup', e => {
+    faderbody.addEventListener('mouseup', e => {
         this.isDragging = false;
     });
-    fader.addEventListener('touchend', e => {
+    faderbody.addEventListener('touchend', e => {
         this.isDragging = false;
     });
 
-    fader.addEventListener('mouseleave', e => {
+    faderbody.addEventListener('mouseleave', e => {
         this.isDragging = false;
     });
 
     fader.addEventListener('mousemove', e => {
         if (this.isDragging) {
-            let faderOffset = fadercolor.offsetTop;
-            fader.update(e.clientY - faderOffset);
+            if (faderbody.isVertical()) {
+                let faderOffset = scale.offsetTop;
+                faderbody.updateV(e.clientY - faderOffset);
+            } else {
+                let faderOffset = scale.offsetLeft;
+                faderbody.updateH(e.clientX - faderOffset);
+            }
         }
     });
     fader.addEventListener('touchmove', e => {
         if (this.isDragging) {
-            let faderOffset = fadercolor.offsetTop;
-            fader.update((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
+            if (faderbody.isVertical()) {
+                let faderOffset = scale.offsetTop;
+                faderbody.updateV((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
+            } else {
+                let faderOffset = scale.offsetLeft;
+                faderbody.updateH((e.targetTouches[0] ? e.targetTouches[0].pageX : e.changedTouches[e.changedTouches.length-1].pageX) - faderOffset);
+            }
         }
     });
 
@@ -81,21 +182,7 @@ function createColorSlider(name, from, to, width, height) {
         e.preventDefault();
     }, false);
 
-    fader.setValue = function(v) {
-        if (v > 1) {v = 1;}
-        if (v < 0) {v = 0;}
-
-        let faderHeight = fadercolor.clientHeight;
-        let faderOffset = fadercolor.offsetTop;
-        let pos = faderHeight - v * faderHeight;
-        
-        faderhead.style.marginTop = (pos - faderhead.clientHeight / 2) + 'px';
-        fader.color = linearGradient(fadercolor.style.getPropertyValue('--from-color'), fadercolor.style.getPropertyValue('--to-color'), (faderHeight - pos)/faderHeight);
-        faderhead.style.backgroundColor = fader.color;
-        fader.value = v;
-    };
-
-    return fader;
+    return faderbody;
 }
 
 function linearGradient(color1, color2, weight) {
@@ -114,7 +201,9 @@ function componentToHex(c) {
     return hex.length == 1 ? "0" + hex : hex;
 }
 
-function createFader(name, min, max, width, height) {
+function createOldFader(name, style, min, max, width, height) {
+    let faderbody = document.createElement('div');
+    faderbody.classList.add("faderbody");
     let fader = document.createElement('div');
     fader.classList.add("fader");
     fader.style.setProperty('--width', width + 'px');
@@ -132,14 +221,15 @@ function createFader(name, min, max, width, height) {
     faderattr.textContent = name;
     fader.appendChild(faderscale);
     fader.appendChild(faderhead);
-    fader.appendChild(faderattr);
+    faderbody.appendChild(fader);
+    faderbody.appendChild(faderattr);
     
-    fader.isDragging = false;
-    fader.value = 0;
-    fader.min = min;
-    fader.max = max;
+    faderbody.isDragging = false;
+    faderbody.value = 0;
+    faderbody.min = min;
+    faderbody.max = max;
 
-    fader.update = function(value) {
+    faderbody.updateV = function(value) {
         let faderHeight = faderscale.clientHeight;
         if(value > faderHeight) {
             value = faderHeight;
@@ -149,12 +239,12 @@ function createFader(name, min, max, width, height) {
         let head = fader.querySelector('.fadehead');
         head.style.marginTop = (value - head.clientHeight / 2) + 'px';
 
-        fader.value = faderHeight - value;
+        faderbody.value = faderHeight - value;
     };
 
     faderscale.addEventListener('mousedown', e => {
         this.isDragging = true;
-        fader.update(e.clientY - faderscale.offsetTop);
+        faderbody.updateV(e.clientY - faderscale.offsetTop);
     });
     faderhead.addEventListener('mousedown', e => {
         this.isDragging = true;
@@ -164,7 +254,7 @@ function createFader(name, min, max, width, height) {
         this.isDragging = true;
 
         let faderOffset = faderscale.offsetTop;
-        fader.update(e.clientY - faderOffset);
+        faderbody.updateV(e.clientY - faderOffset);
     });
     faderhead.addEventListener('touchstart', e => {
         e.preventDefault();
@@ -185,18 +275,18 @@ function createFader(name, min, max, width, height) {
 
     fader.addEventListener('mousemove', e => {
         if (this.isDragging) {
-            fader.update(e.clientY - faderscale.offsetTop);
+            faderbody.updateV(e.clientY - faderscale.offsetTop);
         }
     });
     fader.addEventListener('touchmove', e => {
         e.preventDefault();
         if (this.isDragging) {
             let faderOffset = faderscale.offsetTop;
-            fader.update((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
+            faderbody.updateV((e.targetTouches[0] ? e.targetTouches[0].pageY : e.changedTouches[e.changedTouches.length-1].pageY) - faderOffset);
         }
     }, false);
 
-    fader.setValue = function(v) {
+    faderbody.setValue = function(v) {
         if (v > max) {v = max;}
         if (v < min) {v = min;}
 
@@ -205,15 +295,15 @@ function createFader(name, min, max, width, height) {
         let pos = faderHeight - v / (max - min) * faderHeight;
         
         faderhead.style.marginTop = (pos - faderhead.clientHeight / 2) + 'px';
-        faderhead.style.backgroundColor = fader.color;
-        fader.value = v;
+        faderhead.style.backgroundColor = faderbody.color;
+        faderbody.value = v;
     };
 
     fader.addEventListener('contextmenu', e => {
         e.preventDefault();
     }, false);
 
-    return fader;
+    return faderbody;
 }
 
 function drawFaderScale(from, to, width, height, color) {

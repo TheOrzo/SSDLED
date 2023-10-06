@@ -23,8 +23,8 @@ function selectNavItem(item) {
 
 function generateAusschank() {
     let page = document.getElementById('ausschank');
-    let temp = createColorSlider('Temperatur', '#f8f6e1', '#fddb6a', 180, (window.innerHeight * 0.9));
-    let dim = createFader('Dimmer', 0, 255, 180, (window.innerHeight * 0.9));
+    let temp = createFader('Temperatur', 'color', 0, 1, '#f8f6e1', '#fddb6a');
+    let dim = createFader('Dimmer', 'value', 0, 255);
     page.appendChild(temp);
     page.appendChild(dim);
     temp.setValue(.25);
@@ -54,7 +54,7 @@ function generateAusschank() {
 
 function generateSumpf() {
     let page = document.getElementById('contentSumpf');
-    let dim = createFader('Dimmer', 0, 255, 180, (window.innerHeight * 0.9));
+    let dim = createFader('Dimmer', 'value', 0, 255);
     page.appendChild(dim);
     dim.setValue(128);
 }

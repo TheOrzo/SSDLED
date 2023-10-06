@@ -12,6 +12,10 @@
     user-select: none;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--background-color);
     overscroll-behavior: contain;
@@ -19,6 +23,10 @@ body {
 
 /* The mode selection area */
 .modeselect {
+    display: flex;
+    flex-direction: column;
+
+
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 160px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -26,7 +34,7 @@ body {
     top: 0; /* Stay at the top */
     left: 0;
     background-color: rgba(255, 255, 255, 0.08); /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
 
@@ -92,6 +100,7 @@ body {
     padding: 10px 10px;
     color: #c5c5c5;
     font-family: var(--font);
+    overflow: hidden; /* Disable horizontal scroll */
 }
   
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
@@ -124,10 +133,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-content: center;
-    justify-content: flex-start;
-    gap: 20px;
-    padding-left: 20px;
+    justify-content: space-around;
     height: 80px; /* Full-height: remove this if you want "auto" height */
     width: calc(100% - 160px); /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -180,4 +186,41 @@ body {
 
 .settingsnav a.selected .modetext {
     font-size: 20px;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+    .modeselect .logo {
+        display: none;
+    }
+    
+    .modeselect {
+        flex-direction: row;
+        justify-content: space-around;
+
+        width: 100%; /* Full-height: remove this if you want "auto" height */
+        height: 60px;
+        top: auto;
+        bottom: 0;
+        padding: 0;
+    }
+
+    .modeselect .selected .modetext {
+        display: none;
+    }
+
+    .main {
+        flex-direction: column-reverse;
+        margin-left: 0;
+        height: calc(100% - 80px);
+        left: 0;
+        right: 0;
+    }
+
+    .settingsnav {
+        left: 0;
+        width: 100%;
+    }
 }

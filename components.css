@@ -1,69 +1,69 @@
 /* Color Fader */
-.colorfader,.fader {
+.faderbody {
     display: flex;
     flex-flow: column;
-    margin-top: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 180px;
+    height: 100%;
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+.fader {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
     border-radius: var(--border-radius);
-    padding: 5px;
-    padding-top: calc(var(--height) * 0.05);
-    width: var(--width);
-    height: var(--height);
+    width: 100%;
+    height: 90%;
     user-select: none;
 }
 
-.colorfader.fadecolor {
+.fader .colorscale {
     background: none;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    flex-flow: column;
-    align-self: center;
     background-image: linear-gradient(var(--from-color), var(--to-color));
-    width: calc(var(--width) * 0.4);
-    height: calc(var(--height) * 0.95 - 30px);
+    width: 50px;
+    height: 100%;
     padding: 0;
     user-select: none;
 }
 
-.colorfader.fadecolorhead {
+.fader .fadescale {
+    display: flex;
+    flex-direction: row;
+    background: none;
+    width: 100px;
+    height: 100%;
+    padding: 0;
+    user-select: none;
+}
+
+.fader .fadescale .center {
+    background-color: var(--primary-color);
+    margin-left: 45px;
+    width: 10px;
+    height: 100%;
+}
+
+.fader .fadescale .label {
+    color: var(--primary-color);
+    display: flex;
+    padding-left: 10px;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.fader .fadecolorhead {
     background: none;
     position: absolute;
     align-self: center;
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    width: calc(var(--width) * 0.5);
-    height: calc(var(--height) * 0.05);
-    border: solid 5px rgb(121, 121, 121);
-    padding: 0;
-    user-select: none;
-}
-
-.colorfader.fadeattr, .fader.fadeattr {
-    background: none;
-    flex-flow: column;
-    align-self: center;
-    margin-top: calc(var(--height) * 0.05);
-    margin-bottom: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    text-align: center;
-    user-select: none;
+    width: 80px;
     height: 30px;
-}
-
-.fader.fadescale {
-    background: none;
-    margin-top: 0;
-    margin-bottom: 0;
-    flex-flow: column;
-    align-self: center;
-    background-repeat: no-repeat;
-    width: calc(var(--width) * 0.8);
-    height: calc(var(--height) * 0.95 - 30px);
+    border: solid 5px rgb(121, 121, 121);
     padding: 0;
     user-select: none;
 }
@@ -73,11 +73,23 @@
     position: absolute;
     align-self: center;
     margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
     background-color: rgb(121, 121, 121);
-    width: calc(var(--width) * 0.4);
-    height: calc(var(--height) * 0.03);
+    width: 80px;
+    height: 30px;
     padding: 0;
     user-select: none;
+}
+
+.fader .fadeattr {
+    background: none;
+    flex-flow: column;
+    align-self: center;
+    padding: 0;
+    text-align: center;
+    user-select: none;
+    height: 30px;
 }
 
 /* Button Container */
@@ -135,4 +147,71 @@
 .simplebutton.selected {
     color: var(--primary-color);
     background-color: rgba(254, 222, 125, 0.2);
+}
+
+@media only screen and (max-width: 600px) {
+    .faderbody {
+        height: 100px;
+        width: 100%;
+    }
+
+    .fader {
+        height: 60%;
+        width: 90%;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .fader .colorscale {
+        background-image: linear-gradient(90deg, var(--from-color), var(--to-color));
+        width: 100%;
+        height: 25px;
+    }
+
+    .fader .fadescale {
+        flex-direction: column;
+        width: 100%;
+        height: 60px;
+    }
+
+    .fader .fadescale .center {
+        margin-top: 28px;
+        margin-left: 0;
+        width: 100%;
+        height: 5px;
+    }
+    .fader .fadescale .label {
+        flex-direction: row;
+        padding-left: 0;
+    }
+
+    .fader .fadecolorhead {
+        width: 20px;
+        height: 50px;
+        margin-top: 0;
+        justify-self: center;
+        align-self: flex-start;
+    }
+
+    .fader .fadehead {
+        width: 20px;
+        height: 50px;
+        margin-top: 0;
+        justify-self: center;
+        align-self: flex-start;
+    }
+    
+    .fader .fadeattr, .fader.fadeattr {
+        height: 20%;
+    }
+
+    .buttonsection {    
+        justify-content: space-evenly
+    }
+
+    .simplebutton {
+        width: 100px;
+        height: 100px;
+        font-size: 16px;
+    }
 }
