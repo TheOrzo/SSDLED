@@ -82,7 +82,7 @@ window.onload = (e) => {
 
 
 // Settings scripts
-function changeSettingsPage(name) {
+async function changeSettingsPage(name) {
     Array.from(document.getElementById('settingsNav').children).forEach(e => {
         e.classList.remove('selected');
     });
@@ -102,6 +102,10 @@ function changeSettingsPage(name) {
         case 'segments':
             document.getElementById('settingsNavItemSegments').classList.add("selected");
             document.getElementById('settingsSegmentsContent').classList.remove("hidden");
+            let seglist = document.getElementById('seglist');
+            seglist.replaceChildren();
+            let json = await getSegments();
+            json.forEach(function(info) {seglist.append(createSegmentInfo(info))});
             break;
         case 'lock':
             document.getElementById('settingNavItemLock').classList.add("selected");
@@ -111,4 +115,8 @@ function changeSettingsPage(name) {
         default:
             break;
     }
+}
+
+function loadSegmentProperties(id) {
+    
 }

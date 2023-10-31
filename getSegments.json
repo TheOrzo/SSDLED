@@ -1,0 +1,5 @@
+[
+    {"id":0, "name":"Schiff", "type":"WLED", "state":2},
+    {"id":1, "name":"Stickerwand", "type":"WLED", "state":0},
+    {"id":2, "name":"Logo", "type":"WLED", "state":2}
+]

@@ -11,6 +11,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <script src="scripts.js"></script>
         <script src="components.js"></script>
+        <script src="hardware.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.1/tinycolor.min.js"></script>
     </head>
     <body>
@@ -67,10 +68,44 @@
                 </a>
             </div>
             <div id="settingsContent" class="settingscontent">
-                <div id="settingsMappingContent" class="settingsContent hidden"></div>
-                <div id="settingsEffectsContent" class="settingsContent hidden"></div>
-                <div id="settingsSegmentsContent" class="settingsContent hidden"></div>
-                <div id="settingsLockContent" class="settingsContent hidden"></div>
+                <div id="settingsMappingContent" class="settingspage hidden">
+                    Mapping
+                </div>
+                <div id="settingsEffectsContent" class="settingspage hidden">
+                    Effects
+                </div>
+                <div id="settingsSegmentsContent" class="settingspage hidden">
+                    <div id="settingsSegmentsList" class="segmentList">
+                        <div id="seglist" class="seglist"></div>
+                        <div id="addseg" onclick="createSegment();" class="addseg">add segment</div>
+                    </div>
+                    <div id="settingsSegmentsProp" class="segmentProp">
+                        <div id="segPropPanel" class="segproppanel">
+                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                                <span contenteditable="true" class="segprop-name">Test selected</span>
+                                <select class="segprop-type"><option value="MQTT">MQTT</option><option value="SSDLED">SSDLED</option><option value="WLED">WLED</option><option value="Zigbee">Zigbee</option></select>
+                            </div>
+                            <div style="display: flex; flex-direction: row; gap: 10px; width: 100%;">
+                                <span>Adresse:</span><span contenteditable="true">led.local</span>
+                            </div>
+                            <div style="display: flex; flex-direction: row; gap: 10px; width: 100%;">
+                                <span>Kommentar:</span><span contenteditable="true">Colorloop ist preset 5</span>
+                            </div>
+                            <div style="margin-top: 10px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px; width: 100%;">
+                                <div class="button">get info</div>
+                                <span>...pending</span>
+                            </div>
+                            <div style="margin-top: 10px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px; width: 100%;">
+                                <div class="button">off</div>
+                            </div>
+                            
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="settingsLockContent" class="settingspage hidden">
+                    Lock
+                </div>
             </div>
         </div>
     </body>

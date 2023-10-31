@@ -367,3 +367,37 @@ function createSimpleButton(name, icon) {
 
     return button;
 }
+
+function createSegmentInfo(info) {
+    let container = document.createElement('div');
+    container.classList.add('segment');
+    let icon = document.createElement('img');
+    switch (info.type) {
+        case "WLED":
+            icon.setAttribute("src", "wled.png")
+            break;
+        default:
+            break;
+    }
+    let name = document.createElement('span');
+    name.textContent = info.name;
+    let state = document.createElement('span');
+    state.classList.add('material-icons');
+    state.innerText = 'brightness_1';
+    switch (info.state) {
+        case 0:
+            state.style.color = 'red';
+            break;
+        case 1:
+            state.style.color = 'orange';
+            break;
+        case 2:
+            state.style.color = 'green';
+            break;
+    }
+    container.appendChild(icon);
+    container.appendChild(name);
+    container.appendChild(state);
+    container.addEventListener('click', e => {loadSegmentProperties(info.id)});
+    return container;
+}

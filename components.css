@@ -51,7 +51,6 @@
     padding-left: 10px;
     flex-direction: column-reverse;
     justify-content: space-between;
-    padding-top: 5px;
 }
 
 .fader .fadecolorhead {
@@ -183,6 +182,7 @@
     .fader .fadescale .label {
         flex-direction: row;
         padding-left: 0;
+        padding-top: 5px;
     }
 
     .fader .fadecolorhead {
@@ -214,4 +214,89 @@
         height: 100px;
         font-size: 16px;
     }
+}
+
+/* Segment settings */
+.segment {
+    align-items: center;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.segment:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.segment.selected {
+    background-color: rgba(254, 222, 125, 0.15);
+}
+
+.segment img {
+    width: 30px;
+    margin-left: 10px;
+}
+.segment span {
+    margin-left: 10px;
+    font-size: 25px;
+}
+.segment .material-icons {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.addseg {
+    width: 80%;
+    height: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    font-size: 20px;
+}
+.addseg:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.segprop-name {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.segprop-type {
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    font-family: var(--font);
+    color: #c5c5c5;
+}
+
+.segprop-type option {
+    background-color: var(--background-color-1dp);
+}
+
+.segproppanel .button {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.segproppanel .button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
