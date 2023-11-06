@@ -268,6 +268,30 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+.segproppanel .spreadcontainer {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    width: 100%;
+}
+
+.segproppanel .textfieldcontainer {
+    display: flex; 
+    flex-direction: row; 
+    gap: 10px; 
+    width: 100%;
+}
+
+.segproppanel .buttoncontainer {
+    margin-top: 10px; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: flex-start; 
+    gap: 10px; 
+    width: 100%;
+}
+
 .segprop-name {
     font-size: 25px;
     margin-bottom: 10px;

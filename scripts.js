@@ -89,6 +89,7 @@ async function changeSettingsPage(name) {
     Array.from(document.getElementById('settingsContent').children).forEach(e => {
         e.classList.add('hidden');
     });
+    document.getElementById('settingsSegmentsProp').replaceChildren();
 
     switch (name) {
         case 'mapping':
@@ -117,6 +118,9 @@ async function changeSettingsPage(name) {
     }
 }
 
-function loadSegmentProperties(id) {
-    
+async function loadSegmentProperties(id) {
+    let container = document.getElementById('settingsSegmentsProp');
+    container.replaceChildren();
+    let prop = await getSegment(id);
+    container.appendChild(createSegmentProperties(prop));
 }

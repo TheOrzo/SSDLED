@@ -401,3 +401,79 @@ function createSegmentInfo(info) {
     container.addEventListener('click', e => {loadSegmentProperties(info.id)});
     return container;
 }
+
+function createSegmentProperties(prop) {
+    let container = document.createElement('div');
+    container.classList.add('segproppanel');
+    let nameContainer = document.createElement('div');
+    nameContainer.classList.add('spreadcontainer');
+    let name = document.createElement('span');
+    name.classList.add('segprop-name')
+    name.setAttribute('contenteditable', 'true');
+    name.textContent = prop.name;
+    name.style.width = "100%";
+    let type = document.createElement('select');
+    type.classList.add('segprop-type');
+    getSegmentTypes().forEach(t => {
+        let option = document.createElement('option');
+        option.value = t;
+        option.textContent = t;
+        type.appendChild(option);
+    });
+    type.value = prop.type;
+    nameContainer.appendChild(name);
+    nameContainer.appendChild(type);
+    container.appendChild(nameContainer);
+
+    switch (prop.type) {
+        case 'WLED':
+            let urlcontainer = document.createElement('div');
+            urlcontainer.classList.add('textfieldcontainer');
+            let urlLabel = document.createElement('span');
+            urlLabel.textContent = "Adresse:";
+            urlcontainer.appendChild(urlLabel)
+            let urlField = document.createElement('span');
+            urlField.setAttribute('contenteditable', 'true');
+            urlField.textContent = prop.url;
+            urlField.style.width = "100%";
+            urlcontainer.appendChild(urlField); 
+            container.appendChild(urlcontainer);
+            let commentContainer = document.createElement('div');
+            commentContainer.classList.add('textfieldcontainer');
+            let commentLabel = document.createElement('span');
+            commentLabel.textContent = "Adresse:";
+            commentContainer.appendChild(commentLabel)
+            let commentField = document.createElement('span');
+            commentField.setAttribute('contenteditable', 'true');
+            commentField.textContent = prop.comment;
+            commentField.style.width = "100%";
+            commentContainer.appendChild(commentField);
+            container.appendChild(commentContainer);
+            let infoContainer = document.createElement('div');
+            infoContainer.classList.add('buttoncontainer');
+            let infoButton = document.createElement('div');
+            infoButton.classList.add('button');
+            infoButton.textContent = "Info abfragen";
+            infoContainer.appendChild(infoButton);
+            let infoText = document.createElement('span');
+            infoButton.addEventListener('click', e => {infoText.textContent = '...Pending'});
+            infoContainer.appendChild(infoText);
+            container.appendChild(infoContainer);
+            let offContainer = document.createElement('buttoncontainer');
+            offContainer.classList.add('buttoncontainer');
+            let offButton = document.createElement('div');
+            offButton.classList.add('button');
+            offButton.textContent = "Ausschalten";
+            offContainer.appendChild(offButton);
+            let offText = document.createElement('span');
+            offButton.addEventListener('click', e => {offText.textContent = '...Pending'});
+            offContainer.appendChild(offText);
+            container.appendChild(offContainer);
+            break;
+    
+        default:
+            break;
+    }
+
+    return container;
+}

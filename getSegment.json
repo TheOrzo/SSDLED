@@ -1,0 +1,7 @@
+{
+    "id":0,
+    "name":"Schiff",
+    "type":"WLED",
+    "url":"led.local",
+    "comment":"Presets:\n5 Colorloop\n4 Orange Theme\n3 all white"
+}
